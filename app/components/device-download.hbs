@@ -1,0 +1,19 @@
+<table>
+  <thead>
+    <tr>
+      {{#each this.columnHeaders as |columnHeader|}}
+        <th>{{columnHeader}}</th>
+      {{/each}}
+    </tr>
+  </thead>
+  <tbody>
+    {{#each @devices as |deviceInfo|}}
+      <tr>
+        <td>{{ deviceInfo.name}}</td>
+        <td>{{ deviceInfo.device }}</td>
+        <td>{{ deviceInfo.path }}</td>
+        <td>{{ deviceInfo.status }}</td>
+      </tr>
+    {{/each}}
+    </tbody>
+</table>
