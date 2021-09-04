@@ -89,4 +89,15 @@ export default class DeviceDownloadComponent extends Component {
 
     this.isIndeterminate = true;
   }
+
+  @action
+  downloadDevices() {
+    const selectedDevices = this.devices.filter((device) => device.selected);
+
+    let alertContent = '';
+    selectedDevices.forEach((device) => {
+      alertContent += `Device: ${device.name}, Path: ${device.path}` + '\n';
+    });
+    alert(alertContent);
+  }
 }

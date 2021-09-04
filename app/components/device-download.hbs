@@ -8,7 +8,10 @@
   </div>
 
   <div class="flex__item">
-    <span>Download Selected</span>
+    <div class="download--hover" {{on "click" (fn this.downloadDevices)}}>
+      <FaIcon @icon="download" />
+      <span>Download Selected</span>
+    </div>
   </div>
 </div>
 
