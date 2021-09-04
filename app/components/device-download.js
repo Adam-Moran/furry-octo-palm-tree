@@ -3,7 +3,10 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
 export default class DeviceDownloadComponent extends Component {
+  #maxCheckedDevicesAvailable = 0;
+
   columnHeaders = ['Name', 'Device', 'Path', 'Status'];
+
   @tracked devices = [];
   @tracked selectedDevicesCount = 0;
   @tracked isChecked = false;
@@ -11,11 +14,22 @@ export default class DeviceDownloadComponent extends Component {
 
   constructor() {
     super(...arguments);
-    this.devices = this.args.devices.map((device) => ({
-      ...device,
-      selected: false,
-      disabled: device.status != 'available',
-    }));
+    this.devices = this.args.devices.map((device) => {
+      const disabledForDownload = device.status != 'available';
+      if (disabledForDownload) {
+        this.#maxCheckedDevicesAvailable++;
+      }
+
+      return {
+        ...device,
+        selected: false,
+        disabled: disabledForDownload,
+      };
+    });
+
+    this.#maxCheckedDevicesAvailable = this.devices.filter(
+      (device) => !device.disabled
+    ).length;
   }
 
   get totalCountString() {
@@ -60,11 +74,7 @@ export default class DeviceDownloadComponent extends Component {
       this.selectedDevicesCount--;
     }
 
-    const maxCheckedDevices = this.devices.filter(
-      (device) => !device.disabled
-    ).length;
-
-    if (this.selectedDevicesCount == maxCheckedDevices) {
+    if (this.selectedDevicesCount == this.#maxCheckedDevicesAvailable) {
       this.isChecked = true;
       this.isIndeterminate = false;
 
