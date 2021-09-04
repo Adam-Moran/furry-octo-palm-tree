@@ -17,20 +17,20 @@
     <table class="table">
       <thead>
         <tr class="table__row">
-          <th class="table__row__header"></th>
+          <th class="table__header"></th>
           {{#each this.columnHeaders as |columnHeader|}}
-            <th class="table__row__header">{{columnHeader}}</th>
+            <th class="table__header">{{columnHeader}}</th>
           {{/each}}
         </tr>
       </thead>
       <tbody>
         {{#each this.devices as |deviceDetails|}}
-          <tr class="table__row table__row-hoverable {{if deviceDetails.selected "table__row-selected" ""}}">
-            <td class="table__row__row__data">{{input type="checkbox" checked=deviceDetails.selected disabled=deviceDetails.disabled}}</td>
-            <td class="table__row__data">{{ deviceDetails.name}}</td>
-            <td class="table__row__data">{{ deviceDetails.device }}</td>
-            <td class="table__row__data">{{ deviceDetails.path }}</td>
-            <td class="table__row__data">{{ deviceDetails.status }}</td>
+          <tr class="table__row table__row--hoverable {{if deviceDetails.selected "table__row--selected" ""}}">
+            <td class="table__data">{{input disabled=deviceDetails.disabled type="checkbox" checked=deviceDetails.selected}}</td>
+            <td class="table__data">{{ deviceDetails.name}}</td>
+            <td class="table__data">{{ deviceDetails.device }}</td>
+            <td class="table__data">{{ deviceDetails.path }}</td>
+            <td class="table__data table__data--capitalize {{if deviceDetails.disabled "" "table__row--selectable"}}">{{ deviceDetails.status }}</td>
           </tr>
         {{/each}}
         </tbody>
