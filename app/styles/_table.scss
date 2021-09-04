@@ -1,0 +1,30 @@
+.table {
+  text-align: left;
+  border-collapse: collapse;
+  border-top: 0.5px solid $secondary-colour;
+  width: 100%;
+
+  &__row {
+    border-bottom: 0.5px solid $secondary-colour;
+
+    &__header {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    &__data {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    &-hoverable {
+      &:hover {
+        background-color: $secondary-colour;
+      }
+    }
+
+    &-selected {
+      background-color: $secondary-colour;
+    }
+  }
+}

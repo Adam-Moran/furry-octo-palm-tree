@@ -1,19 +1,39 @@
-<table>
-  <thead>
-    <tr>
-      {{#each this.columnHeaders as |columnHeader|}}
-        <th>{{columnHeader}}</th>
-      {{/each}}
-    </tr>
-  </thead>
-  <tbody>
-    {{#each @devices as |deviceInfo|}}
-      <tr>
-        <td>{{ deviceInfo.name}}</td>
-        <td>{{ deviceInfo.device }}</td>
-        <td>{{ deviceInfo.path }}</td>
-        <td>{{ deviceInfo.status }}</td>
-      </tr>
-    {{/each}}
-    </tbody>
-</table>
+<div class="flex flex__row">
+  <div class="flex__item">
+    <input type="checkbox">
+  </div>
+
+  <div class="flex__item">
+    <span>Selected: {{this.selectedDeviceCount}}</span>
+  </div>
+
+  <div class="flex__item">
+    <span>Download Selected</span>
+  </div>
+</div>
+
+<div class="flex flex__column">
+  <div class="flex__item">
+    <table class="table">
+      <thead>
+        <tr class="table__row">
+          <th class="table__row__header"></th>
+          {{#each this.columnHeaders as |columnHeader|}}
+            <th class="table__row__header">{{columnHeader}}</th>
+          {{/each}}
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.devices as |deviceDetails|}}
+          <tr class="table__row table__row-hoverable {{if deviceDetails.selected "table__row-selected" ""}}">
+            <td class="table__row__row__data">{{input type="checkbox" checked=deviceDetails.selected disabled=deviceDetails.disabled}}</td>
+            <td class="table__row__data">{{ deviceDetails.name}}</td>
+            <td class="table__row__data">{{ deviceDetails.device }}</td>
+            <td class="table__row__data">{{ deviceDetails.path }}</td>
+            <td class="table__row__data">{{ deviceDetails.status }}</td>
+          </tr>
+        {{/each}}
+        </tbody>
+    </table>
+  </div>
+</div>
