@@ -7,16 +7,16 @@ export default class DeviceDownloadComponent extends Component {
 
   columnHeaders = ['Name', 'Device', 'Path', 'Status'];
 
-  @tracked devices = [];
+  @tracked devices;
   @tracked selectedDevicesCount = 0;
-  @tracked isChecked = false;
-  @tracked isIndeterminate = false;
+  @tracked isChecked;
+  @tracked isIndeterminate;
 
   constructor() {
     super(...arguments);
     this.devices = this.args.devices.map((device) => {
       const disabledForDownload = device.status != 'available';
-      if (disabledForDownload) {
+      if (!disabledForDownload) {
         this.#maxCheckedDevicesAvailable++;
       }
 
@@ -27,12 +27,11 @@ export default class DeviceDownloadComponent extends Component {
       };
     });
 
-    this.#maxCheckedDevicesAvailable = this.devices.filter(
-      (device) => !device.disabled
-    ).length;
+    this.isChecked = false;
+    this.isIndeterminate = false;
   }
 
-  get totalCountString() {
+  get totalSelectionCount() {
     let prefix = '';
     if (this.selectedDevicesCount == 0) {
       prefix = 'None';
@@ -43,8 +42,12 @@ export default class DeviceDownloadComponent extends Component {
   }
 
   @action
-  setChecked() {
-    const checked = !this.isChecked;
+  toggleAll() {
+    let checked = !this.isChecked;
+    if (this.isIndeterminate) {
+      this.isIndeterminate = false;
+      checked = true;
+    }
 
     this.devices = this.devices.map((device) => {
       if (device.disabled) {
@@ -88,6 +91,7 @@ export default class DeviceDownloadComponent extends Component {
     }
 
     this.isIndeterminate = true;
+    this.isChecked = false;
   }
 
   @action

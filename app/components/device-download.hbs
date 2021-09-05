@@ -1,10 +1,10 @@
 <div class="flex flex__row">
   <div class="flex__item">
-    <Input @type="checkbox" {{on "click" (fn this.setChecked)}} @checked={{this.isChecked}} indeterminate={{this.isIndeterminate}}/>
+    <Input @type="checkbox" {{on "change" (fn this.toggleAll)}} @checked={{this.isChecked}} indeterminate={{this.isIndeterminate}}/>
   </div>
 
   <div class="flex__item">
-    <span>{{this.totalCountString}}</span>
+    <span>{{this.totalSelectionCount}}</span>
   </div>
 
   <div class="flex__item">
