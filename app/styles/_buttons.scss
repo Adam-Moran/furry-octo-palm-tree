@@ -1,0 +1,7 @@
+.download-button {
+  border: none;
+  background-color: $background;
+  &--hover {
+    cursor: pointer;
+  }
+}
